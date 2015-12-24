@@ -22,7 +22,7 @@ void main()
 {
     auto mins = tuple(ulong.max, ulong.max);
 
-    while (true)
+    //while (true) //Just run once for now!
     {
         auto vals = measure();
         vals[0] = min(vals[0], mins[0]);

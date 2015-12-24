@@ -21,10 +21,17 @@ BezIota!(T, 2) beziota(T)(T c0, T c1, T roundHint=T.max)
 
 double floor(double d)
 {
-    version (X86_64) static double asmFloor(double d)
-    {
-        asm { naked; cvttsd2si EAX, XMM0; cvtsi2sd XMM0, EAX; ret; }
-    }
+    version (X86_64){ 
+	static double asmFloor(double d)
+		{
+			asm { naked; cvttsd2si EAX, XMM0; cvtsi2sd XMM0, EAX; ret; }
+		}
+	}else{ 
+	static double asmFloor(double d)
+		{
+		return std.math.floor(d);
+		}
+	}
     auto res = asmFloor(d);
     if (d < 0 && res != d)
         return res - 1.0;
@@ -45,10 +52,17 @@ unittest
 
 double ceil(double d)
 {
-    version (X86_64) static double asmFloor(double d)
-    {
-        asm { naked; cvttsd2si EAX, XMM0; cvtsi2sd XMM0, EAX; ret; }
-    }
+    version (X86_64){ 
+	static double asmFloor(double d)
+		{
+			asm { naked; cvttsd2si EAX, XMM0; cvtsi2sd XMM0, EAX; ret; }
+		}
+	}else{ 
+	static double asmFloor(double d)
+		{
+		return std.math.floor(d);
+		}
+	}
     auto res = asmFloor(d);
     if (d > 0 && res != d)
         return res + 1.0;

@@ -88,7 +88,7 @@ unittest
 // which is (2 ^ (2 * (n+1)) - 1) / 3
 size_t totalNumCoeffs(size_t depth)
 {
-    return ((1UL << 2 * (depth + 1)) - 1) / 3;
+    return cast(size_t) ((1UL << 2 * (depth + 1)) - 1) / 3;
 }
 
 unittest
@@ -121,10 +121,10 @@ struct WaveletRaster
         foreach (d; 0 .. _depth)
         {
             // TODO: combine allocations
-            immutable ncoeffs = (1UL << (_depth - d - 1)) ^^ 2; // -1 because of 2x2 tiles
-            _coeffs[d] = (cast(Coeffs*)malloc(ncoeffs * Coeffs.sizeof))[0 .. ncoeffs];
+            immutable uint ncoeffs = cast(uint) (1UL << (_depth - d - 1)) ^^ 2; // -1 because of 2x2 tiles
+            _coeffs[d] = (cast(Coeffs*)malloc(cast(uint) (Coeffs.sizeof * ncoeffs)))[0 .. ncoeffs];
             enum nbits = 8 * size_t.sizeof;
-            _coeffMarks[d] = cast(size_t*)calloc((ncoeffs + nbits - 1) / nbits, size_t.sizeof);
+            _coeffMarks[d] = cast(size_t*)calloc(cast(uint) (ncoeffs + nbits - 1) / nbits, size_t.sizeof);
         }
     }
 

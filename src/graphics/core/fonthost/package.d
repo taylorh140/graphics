@@ -18,7 +18,8 @@ version (FreeType) {
   public import graphics.core.fonthost.freetype;
 } else version (GDI) {
   // TODO: gdi binding
-  // public import graphics.core.fonthost.gdi;
+  public import graphics.core.fonthost.gdi;
+  public import graphics.core.fonthost.fontconfig_gdi;
 } else version(CoreText) {
   // TODO: coretext binding, atsui for 10.4 ?
   // public import graphics.core.fonthost.coretext;
